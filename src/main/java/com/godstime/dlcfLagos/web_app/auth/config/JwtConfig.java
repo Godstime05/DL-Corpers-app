@@ -1,7 +1,11 @@
 package com.godstime.dlcfLagos.web_app.auth.config;
 
+import org.springframework.context.annotation.Bean;
+
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 public class JwtConfig {
