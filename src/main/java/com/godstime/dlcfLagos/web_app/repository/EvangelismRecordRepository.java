@@ -1,6 +1,8 @@
 package com.godstime.dlcfLagos.web_app.repository;
 
 import com.godstime.dlcfLagos.web_app.model.EvangelismRecord;
+import com.godstime.dlcfLagos.web_app.model.FellowshipCenter;
+import com.godstime.dlcfLagos.web_app.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,16 +13,27 @@ import java.util.List;
 
 @Repository
 public interface EvangelismRecordRepository extends JpaRepository<EvangelismRecord, Long> {
+    List<EvangelismRecord> findByFellowshipCenter(FellowshipCenter center);
     
-    List<EvangelismRecord> findByCreatedByIdOrderByEventDateDesc(Long userId);
+    List<EvangelismRecord> findByCreatedBy(User user);
     
-    Page<EvangelismRecord> findByCreatedByIdOrderByEventDateDesc(Long userId, Pageable pageable);
+    List<EvangelismRecord> findByEvangelismDateBetween(LocalDateTime startDate, LocalDateTime endDate);
     
-    List<EvangelismRecord> findByEventDateBetweenOrderByEventDateDesc(LocalDateTime startDate, LocalDateTime endDate);
+    List<EvangelismRecord> findByLocationContainingIgnoreCase(String location);
     
-    List<EvangelismRecord> findByParticipantsIdOrderByEventDateDesc(Long userId);
+    Page<EvangelismRecord> findAll(Pageable pageable);
     
-    List<EvangelismRecord> findByLocationContainingIgnoreCaseOrderByEventDateDesc(String location);
+    Page<EvangelismRecord> findByFellowshipCenter(FellowshipCenter center, Pageable pageable);
     
-    List<EvangelismRecord> findBySoulsWonGreaterThanOrderByEventDateDesc(int soulsWon);
+    Page<EvangelismRecord> findByCreatedBy(User user, Pageable pageable);
+    
+    Page<EvangelismRecord> findByEvangelismDateBetween(LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
+    
+    Page<EvangelismRecord> findByLocationContainingIgnoreCase(String location, Pageable pageable);
+    
+    long countByFellowshipCenter(FellowshipCenter center);
+    
+    long countByCreatedBy(User user);
+    
+    long countByEvangelismDateBetween(LocalDateTime startDate, LocalDateTime endDate);
 } 

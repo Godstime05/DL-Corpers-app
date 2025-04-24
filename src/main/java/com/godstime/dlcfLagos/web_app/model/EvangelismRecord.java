@@ -2,10 +2,10 @@ package com.godstime.dlcfLagos.web_app.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -17,57 +17,55 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EvangelismRecord {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @NotBlank
-    @Size(max = 100)
-    private String title;
-    
-    @NotBlank
-    @Column(columnDefinition = "TEXT")
-    private String description;
-    
-    @Size(max = 200)
+
+    @NotBlank(message = "Location is required")
+    @Column(nullable = false)
     private String location;
-    
-    private LocalDateTime eventDate;
-    
+
+    @NotNull(message = "Date is required")
+    @Column(name = "evangelism_date", nullable = false)
+    private LocalDateTime evangelismDate;
+
+    @Column(name = "number_of_souls_won")
+    private Integer numberOfSoulsWon;
+
+    @Column(name = "number_of_follow_ups")
+    private Integer numberOfFollowUps;
+
+    @Column(columnDefinition = "TEXT")
+    private String report;
+
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
-    
+
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by")
+    @JoinColumn(name = "fellowship_center_id", nullable = false)
+    private FellowshipCenter fellowshipCenter;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by_id", nullable = false)
     private User createdBy;
-    
-    private int soulsWon;
-    
-    private int followUpCount;
-    
+
     @ManyToMany
-    @JoinTable(name = "evangelism_participants",
-            joinColumns = @JoinColumn(name = "evangelism_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> participants = new HashSet<>();
-    
-    @Column(columnDefinition = "TEXT")
-    private String testimonies;
-    
-    @Column(columnDefinition = "TEXT")
-    private String challenges;
-    
-    @Column(columnDefinition = "TEXT")
-    private String lessons;
-    
+    @JoinTable(
+        name = "evangelism_team_members",
+        joinColumns = @JoinColumn(name = "evangelism_record_id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> teamMembers = new HashSet<>();
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
-    
+
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();

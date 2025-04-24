@@ -1,6 +1,9 @@
 package com.godstime.dlcfLagos.web_app.repository;
 
 import com.godstime.dlcfLagos.web_app.model.FellowshipCenter;
+import com.godstime.dlcfLagos.web_app.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,15 +12,27 @@ import java.util.List;
 @Repository
 public interface FellowshipCenterRepository extends JpaRepository<FellowshipCenter, Long> {
     
-    List<FellowshipCenter> findByIsActiveTrueOrderByNameAsc();
+    List<FellowshipCenter> findByIsActiveTrue();
     
-    List<FellowshipCenter> findByLgaAndIsActiveTrueOrderByNameAsc(String lga);
+    List<FellowshipCenter> findByCity(String city);
     
-    List<FellowshipCenter> findByZoneAndIsActiveTrueOrderByNameAsc(String zone);
+    List<FellowshipCenter> findByState(String state);
     
-    List<FellowshipCenter> findByCoordinatorIdAndIsActiveTrueOrderByNameAsc(Long userId);
+    List<FellowshipCenter> findByCreatedBy(User user);
     
-    List<FellowshipCenter> findByNameContainingIgnoreCaseAndIsActiveTrueOrderByNameAsc(String name);
+    Page<FellowshipCenter> findAll(Pageable pageable);
     
-    List<FellowshipCenter> findByAddressContainingIgnoreCaseAndIsActiveTrueOrderByNameAsc(String address);
+    Page<FellowshipCenter> findByIsActiveTrue(Pageable pageable);
+    
+    Page<FellowshipCenter> findByCity(String city, Pageable pageable);
+    
+    Page<FellowshipCenter> findByState(String state, Pageable pageable);
+    
+    Page<FellowshipCenter> findByCreatedBy(User user, Pageable pageable);
+    
+    long countByIsActiveTrue();
+    
+    long countByCity(String city);
+    
+    long countByState(String state);
 } 
