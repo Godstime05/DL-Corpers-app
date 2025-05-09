@@ -1,6 +1,6 @@
 package com.godstime.dlcfLagos.web_app.auth.service;
 
-import com.godstime.dlcfLagos.web_app.repository.UserRepository;
+import com.godstime.dlcfLagos.web_app.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

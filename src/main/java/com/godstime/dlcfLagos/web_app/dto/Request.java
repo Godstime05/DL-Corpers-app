@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.godstime.dlcfLagos.web_app.model.User;
+import com.godstime.dlcfLagos.web_app.models.User;
 
 import lombok.Data;
 

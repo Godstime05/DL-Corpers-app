@@ -2,15 +2,14 @@ package com.godstime.dlcfLagos.web_app.auth.service;
 
 import java.util.HashMap;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.godstime.dlcfLagos.web_app.dto.Request;
-import com.godstime.dlcfLagos.web_app.model.User;
-import com.godstime.dlcfLagos.web_app.repository.UserRepository;
+import com.godstime.dlcfLagos.web_app.models.User;
+import com.godstime.dlcfLagos.web_app.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service

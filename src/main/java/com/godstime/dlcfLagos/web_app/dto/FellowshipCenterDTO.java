@@ -1,7 +1,6 @@
 package com.godstime.dlcfLagos.web_app.dto;
 
-import com.godstime.dlcfLagos.web_app.model.FellowshipCenter;
-import com.godstime.dlcfLagos.web_app.model.User;
+import com.godstime.dlcfLagos.web_app.models.FellowshipCenter;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;

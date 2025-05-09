@@ -1,6 +1,6 @@
 package com.godstime.dlcfLagos.web_app.dto;
 
-import com.godstime.dlcfLagos.web_app.model.Testimony;
+import com.godstime.dlcfLagos.web_app.models.Testimony;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

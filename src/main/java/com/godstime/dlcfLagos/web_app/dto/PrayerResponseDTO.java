@@ -1,6 +1,6 @@
 package com.godstime.dlcfLagos.web_app.dto;
 
-import com.godstime.dlcfLagos.web_app.model.PrayerResponse;
+import com.godstime.dlcfLagos.web_app.models.PrayerResponse;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
