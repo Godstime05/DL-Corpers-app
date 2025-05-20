@@ -35,6 +35,9 @@ public class CommentDTO {
     private int likesCount;
     
     public static CommentDTO fromEntity(Comment entity) {
+        if (entity == null) {
+            return null;
+        }
         CommentDTO dto = new CommentDTO();
         dto.setId(entity.getId());
         dto.setContent(entity.getContent());

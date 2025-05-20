@@ -10,31 +10,27 @@ import com.godstime.dlcfLagos.web_app.auth.service.SecurityUserService;
 import com.godstime.dlcfLagos.web_app.dto.Request;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/auth")
 public class AuthController {
 
-
     private final SecurityUserService userService;
-
 
     public AuthController(SecurityUserService userService) {
         this.userService = userService;
     }
 
-    @PostMapping("/auth/register")
+    @PostMapping("/register")
     public ResponseEntity<Request> register(@RequestBody Request registerRequest){
-        return  ResponseEntity.ok(userService.register(registerRequest));
+        return ResponseEntity.ok(userService.register(registerRequest));
     }
 
-    @PostMapping("/auth/login")
+    @PostMapping("/login")
     public ResponseEntity<Request> login(@RequestBody Request loginRequest){
         return ResponseEntity.ok(userService.login(loginRequest));
     }
 
-    @PostMapping("/auth/refreshToken")
+    @PostMapping("/refreshToken")
     public ResponseEntity<Request> refreshToken(@RequestBody Request refreshTokenRequest){
         return ResponseEntity.ok(userService.refreshToken(refreshTokenRequest));
     }
-
-
 }

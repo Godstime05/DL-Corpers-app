@@ -30,17 +30,77 @@ import java.util.Arrays;
 public class WebSecurityConfig {
 
     @Autowired
-    private JwtAuthFilter jwtAuthFilter;
-    @Autowired
     private CustomUserService customUserService;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
+                        // Auth endpoints - public
                         .requestMatchers("/api/auth/**").permitAll()
+                        
+                        // Public endpoints
+                        .requestMatchers(
+                            "/api/fellowship-centers/{id}",
+                            "/api/fellowship-centers",
+                            "/api/fellowship-centers/active",
+                            "/api/fellowship-centers/city/{city}",
+                            "/api/fellowship-centers/state/{state}",
+                            "/api/fellowship-centers/count/active",
+                            "/api/fellowship-centers/count/city/{city}",
+                            "/api/fellowship-centers/count/state/{state}",
+                            "/api/announcements/{id}",
+                            "/api/announcements",
+                            "/api/announcements/active",
+                            "/api/announcements/priority/{priority}",
+                            "/api/announcements/target",
+                            "/api/events/{id}",
+                            "/api/events",
+                            "/api/events/active",
+                            "/api/events/upcoming",
+                            "/api/events/ongoing",
+                            "/api/events/category/{category}",
+                            "/api/events/status/{status}",
+                            "/api/events/date-range",
+                            "/api/events/target",
+                            "/api/communes",
+                            "/api/communes/{id}",
+                            "/api/communes/{communeId}/members",
+                            "/api/prayer-requests/{id}",
+                            "/api/prayer-requests",
+                            "/api/prayer-requests/category/{category}",
+                            "/api/prayer-requests/status/{status}",
+                            "/api/prayer-responses/{id}",
+                            "/api/testimonies/{id}",
+                            "/api/testimonies",
+                            "/api/evangelism-records/{id}",
+                            "/api/evangelism-records",
+                            "/api/evangelism-records/fellowship-center/{centerId}"
+                        ).permitAll()
+                        
+                        // Admin/Moderator only endpoints
+                        .requestMatchers(
+                            "/api/announcements/**",
+                            "/api/events/**",
+                            "/api/announcements/creator/{userId}",
+                            "/api/events/creator/{userId}"
+                        ).hasAnyRole("ADMIN", "MODERATOR")
+                        
+                        // Authenticated user endpoints
+                        .requestMatchers(
+                            "/api/fellowship-centers/**",
+                            "/api/prayer-requests/**",
+                            "/api/prayer-responses/**",
+                            "/api/testimonies/**",
+                            "/api/evangelism-records/**",
+                            "/api/feedback/**",
+                            "/api/discussions/**",
+                            "/api/communes/**"
+                        ).authenticated()
+                        
+                        // All other requests need authentication
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
@@ -67,8 +127,8 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public JwtAuthFilter jwtAuthFilter() {
-        return new JwtAuthFilter();
+    public JwtAuthFilter jwtAuthFilter(JwtUtils jwtUtils, CustomUserService userService) {
+        return new JwtAuthFilter(jwtUtils, userService);
     }
 
     @Bean

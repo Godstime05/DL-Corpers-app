@@ -53,20 +53,30 @@ public class TestimonyDTO {
     private String eventDate;
     
     public static TestimonyDTO fromEntity(Testimony entity) {
+        if (entity == null) {
+            return null;
+        }
+        
         TestimonyDTO dto = new TestimonyDTO();
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());
         dto.setContent(entity.getContent());
-        dto.setSubmittedById(entity.getSubmittedBy().getId());
+        
+        if (entity.getSubmittedBy() != null) {
+            dto.setSubmittedById(entity.getSubmittedBy().getId());
+        }
+        
         dto.setSubmittedAt(entity.getSubmittedAt());
         dto.setUpdatedAt(entity.getUpdatedAt());
         dto.setAnonymous(entity.isAnonymous());
         dto.setCategory(entity.getCategory());
         dto.setStatus(entity.getStatus());
         dto.setRejectionReason(entity.getRejectionReason());
+        
         if (entity.getApprovedBy() != null) {
             dto.setApprovedById(entity.getApprovedBy().getId());
         }
+        
         dto.setApprovedAt(entity.getApprovedAt());
         dto.setLikesCount(entity.getLikesCount());
         dto.setSharesCount(entity.getSharesCount());

@@ -57,7 +57,7 @@ public class FellowshipCenterDTO {
         
         if (center.getCreatedBy() != null) {
             dto.setCreatedById(center.getCreatedBy().getId());
-            dto.setCreatedByFullName(center.getCreatedBy().getFullName());
+            dto.setCreatedByFullName(center.getCreatedBy().getUsername());
         }
         
         return dto;

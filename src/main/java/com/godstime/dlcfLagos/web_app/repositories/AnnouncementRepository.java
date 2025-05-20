@@ -12,15 +12,11 @@ import java.util.List;
 @Repository
 public interface AnnouncementRepository extends JpaRepository<Announcement, Long> {
     
-    List<Announcement> findByIsActiveTrueOrderByCreatedAtDesc();
+    List<Announcement> findByActiveTrueOrderByCreatedAtDesc();
     
-    Page<Announcement> findByIsActiveTrueOrderByCreatedAtDesc(Pageable pageable);
+    Page<Announcement> findByActiveTrueOrderByCreatedAtDesc(Pageable pageable);
     
-    List<Announcement> findByCategoryAndIsActiveTrueOrderByCreatedAtDesc(String category);
-    
-    List<Announcement> findByEventDateBetweenAndIsActiveTrueOrderByEventDateAsc(LocalDateTime startDate, LocalDateTime endDate);
-    
-    List<Announcement> findByCreatedByIdAndIsActiveTrueOrderByCreatedAtDesc(Long userId);
+    List<Announcement> findByCreatedByIdAndActiveTrueOrderByCreatedAtDesc(Long userId);
     
     List<Announcement> findByActiveTrue();
     
@@ -31,6 +27,4 @@ public interface AnnouncementRepository extends JpaRepository<Announcement, Long
     List<Announcement> findByTargetAudienceAndSpecificTarget(String targetAudience, String specificTarget);
     
     List<Announcement> findByCreatedById(Long userId);
-    
-    List<Announcement> findAll();
 } 

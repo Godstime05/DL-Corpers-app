@@ -49,15 +49,13 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
     
     long countByRespondedBy(User respondedBy);
     
-    List<Feedback> findByUserIdOrderByCreatedAtDesc(Long userId);
+    List<Feedback> findBySubmittedByIdOrderBySubmittedAtDesc(Long userId);
     
-    Page<Feedback> findByUserIdOrderByCreatedAtDesc(Long userId, Pageable pageable);
-    
-    List<Feedback> findByCategoryOrderByCreatedAtDesc(String category);
+    Page<Feedback> findBySubmittedByIdOrderBySubmittedAtDesc(Long userId, Pageable pageable);
     
     List<Feedback> findByRespondedByIdOrderByRespondedAtDesc(Long userId);
     
-    List<Feedback> findByRespondedAtIsNullOrderByCreatedAtDesc();
+    List<Feedback> findByRespondedAtIsNullOrderBySubmittedAtDesc();
     
-    List<Feedback> findByIsAnonymousFalseOrderByCreatedAtDesc();
+    List<Feedback> findByIsAnonymousFalseOrderBySubmittedAtDesc();
 } 

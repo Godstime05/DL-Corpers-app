@@ -28,6 +28,8 @@ public class Request{
     private String password;
     private String role;
     private String phoneNumber;
+    private String firstName;
+    private String lastName;
 
     private String address;
     private String city;

@@ -45,11 +45,19 @@ public class PrayerRequestDTO {
     private LocalDateTime respondedAt;
     
     public static PrayerRequestDTO fromEntity(PrayerRequest entity) {
+        if (entity == null) {
+            return null;
+        }
+        
         PrayerRequestDTO dto = new PrayerRequestDTO();
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());
         dto.setContent(entity.getContent());
-        dto.setSubmittedById(entity.getSubmittedBy().getId());
+        
+        if (entity.getSubmittedBy() != null) {
+            dto.setSubmittedById(entity.getSubmittedBy().getId());
+        }
+        
         dto.setSubmittedAt(entity.getSubmittedAt());
         dto.setUpdatedAt(entity.getUpdatedAt());
         dto.setAnonymous(entity.isAnonymous());
@@ -57,9 +65,11 @@ public class PrayerRequestDTO {
         dto.setStatus(entity.getStatus());
         dto.setPrayerCount(entity.getPrayerCount());
         dto.setResponse(entity.getResponse());
+        
         if (entity.getRespondedBy() != null) {
             dto.setRespondedById(entity.getRespondedBy().getId());
         }
+        
         dto.setRespondedAt(entity.getRespondedAt());
         return dto;
     }

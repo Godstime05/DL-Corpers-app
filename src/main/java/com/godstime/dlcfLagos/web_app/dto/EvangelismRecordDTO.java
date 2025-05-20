@@ -54,7 +54,7 @@ public class EvangelismRecordDTO {
         
         if (record.getCreatedBy() != null) {
             dto.setCreatedById(record.getCreatedBy().getId());
-            dto.setCreatedByFullName(record.getCreatedBy().getFullName());
+            dto.setCreatedByFullName(record.getCreatedBy().getUsername());
         }
         
         if (record.getTeamMembers() != null) {
@@ -62,7 +62,7 @@ public class EvangelismRecordDTO {
                 .map(User::getId)
                 .collect(Collectors.toSet()));
             dto.setTeamMemberNames(record.getTeamMembers().stream()
-                .map(User::getFullName)
+                .map(User::getUsername)
                 .collect(Collectors.toSet()));
         }
         

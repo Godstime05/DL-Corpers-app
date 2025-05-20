@@ -36,17 +36,18 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     @Query("SELECT e FROM Event e JOIN e.registeredUsers u WHERE u.id = :userId")
     List<Event> findEventsByRegisteredUser(@Param("userId") Long userId);
     
-    List<Event> findByIsActiveTrueOrderByStartDateAsc();
+    List<Event> findByActiveTrueOrderByStartDateTimeAsc();
     
-    Page<Event> findByIsActiveTrueOrderByStartDateAsc(Pageable pageable);
-    
-    List<Event> findByCategoryAndIsActiveTrueOrderByStartDateAsc(String category);
-    
-    List<Event> findByStartDateBetweenAndIsActiveTrueOrderByStartDateAsc(LocalDateTime startDate, LocalDateTime endDate);
-    
-    List<Event> findByCreatedByIdAndIsActiveTrueOrderByStartDateAsc(Long userId);
-    
-    List<Event> findByAttendeesIdAndIsActiveTrueOrderByStartDateAsc(Long userId);
-    
-    List<Event> findByStartDateAfterAndIsActiveTrueOrderByStartDateAsc(LocalDateTime date);
-} 
+    Page<Event> findByActiveTrueOrderByStartDateTimeAsc(Pageable pageable);
+
+    List<Event> findByCategoryAndActiveTrueOrderByStartDateTimeAsc(String category);
+
+    List<Event> findByStartDateTimeBetweenAndActiveTrueOrderByStartDateTimeAsc(LocalDateTime startDate, LocalDateTime endDate);
+
+    List<Event> findByCreatedByIdAndActiveTrueOrderByStartDateTimeAsc(Long userId);
+
+    List<Event> findByRegisteredUsersIdAndActiveTrueOrderByStartDateTimeAsc(Long userId);
+
+    List<Event> findByStartDateTimeAfterAndActiveTrueOrderByStartDateTimeAsc(LocalDateTime date);
+
+}
